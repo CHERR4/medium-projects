@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+*secrets*
+
+src/checkpoint_TwitterApp
+src/spark-warehouse
+.idea
+*.stream-twitter-spark-env*
+checkpoint_TwitterApp
