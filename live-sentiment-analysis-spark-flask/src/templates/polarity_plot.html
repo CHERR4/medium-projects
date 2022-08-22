@@ -1,0 +1,44 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<div class="chart-container" style="position: relative; height:40vh; width:80vw">
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+    var chartElem = document.getElementById("myChart")
+    var chart = new Chart(chartElem, {
+    type: 'line',
+    data: {
+    labels: [],
+    datasets: [{
+        label:"#NFT Polarity",
+    data: [],
+    borderColor: 'blue',
+    fill: false,
+    }]
+    },
+   });;
+</script>
+<script>
+    setInterval(
+        function updateValues() {
+
+        var updatedData = $.get('/data');
+
+        updatedData.done(makeChart);
+        },100); 
+
+
+    function makeChart(data) {
+        console.log(data)
+        var timestamps = data.map(function(d) {return d.timestamp;});
+        var polarities = data.map(function(d) {return d.polarity;});
+        
+        console.log(timestamps)
+        console.log(polarities)
+        chart.data.labels = timestamps
+        chart.data.datasets[0].data = polarities
+        chart.update()
+    }
+</script>
