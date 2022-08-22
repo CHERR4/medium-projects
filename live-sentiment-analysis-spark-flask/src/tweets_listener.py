@@ -1,6 +1,10 @@
 import socket
 from tweepy.streaming import Stream
-from config.secrets import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_SECRET
+
+CONSUMER_KEY = ''
+CONSUMER_SECRET = ''
+ACCESS_TOKEN = ''
+ACCESS_SECRET = ''
 
 
 class TweetPrinter(Stream):
