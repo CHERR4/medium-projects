@@ -1,11 +1,12 @@
-from datetime import datetime
 import json
 import re
+import requests
+import sys
+from datetime import datetime
 from pyspark.context import SparkContext
 from pyspark.streaming import StreamingContext
 from textblob import TextBlob
-import requests
-import sys
+
 
 
 def aggregate_tags_count(new_values, total_sum):

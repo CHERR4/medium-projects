@@ -14,7 +14,7 @@ class TweetPrinter(Stream):
         self.client_socket = spark_socket
 
     def on_status(self, tweet) -> bool:
-        """Every time a status is published
+        """Every time a status is published this method is called with the tweet as argument
         """
         try:
             print(tweet.text.encode('utf-8'))

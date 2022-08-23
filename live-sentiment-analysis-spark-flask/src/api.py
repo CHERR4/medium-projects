@@ -28,12 +28,6 @@ def get_data_json():
 
 
 @app.route('/polarity-live', methods=['GET'])
-def polarity_line():
-    """chartjs barchart with hashtag-count data live, more beautiful than ggplot2
-    """
-    return render_template('polarity_plot.html')
-
-@app.route('/waterfall-live', methods=['GET'])
 def polarity_waterfall():
     """chartjs barchart with hashtag-count data live, more beautiful than ggplot2
     """
