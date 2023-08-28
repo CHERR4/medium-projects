@@ -42,8 +42,11 @@ best_models = {}
 for cluster in range(N_CLUSTERS):
     print('Running for cluster:', cluster)
     cluster_consumption = utils.cluster_grouped_ts(water_consumptions, cluster)
-    grid_search = GridSearch()
-    search = grid_search.execute(cluster_consumption, models, estimator, steps)
+    grid_search = GridSearch(cluster_consumption, models, estimator, steps)
+    search = grid_search.execute()
     best_models[cluster] = search.best_model
 
-print(best_models)
+for cluster in range(N_CLUSTERS):
+    print('Cluster:', cluster)
+    print(best_models[cluster])
+    print('-------------------------------------------')

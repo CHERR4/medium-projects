@@ -1,22 +1,31 @@
 from typing import List
-
-import pandas as pd
 from grid.grid_response import GridResponse
 from grid.grid_model import GridModel
 from grid.model_response import ModelResponse
 from estimator.estimator import Estimator
+import pandas as pd
 
 
 class GridSearch:
+    time_series: pd.DataFrame
+    models: List[GridModel]
+    estimator: Estimator
+    n_predict: int
+
+    def __init__(self, time_series: pd.DataFrame, models: List[GridModel], estimator: Estimator, n_predict: int):
+        self.time_series = time_series
+        self.models = models
+        self.estimator = estimator
+        self.n_predict = n_predict
 
 
-    def execute(self, time_series: pd.DataFrame, models: List[GridModel], estimator: Estimator, n_predict: int) -> GridResponse:
-        grid_response = GridResponse(None, [], estimator)
-        estimator = estimator()
-        test = time_series.tail(n_predict)
-        train = time_series.drop(test.index)
+    def execute(self) -> GridResponse:
+        grid_response = GridResponse(None, [], self.estimator)
+        estimator = self.estimator()
+        test = self.time_series.tail(self.n_predict)
+        train = self.time_series.drop(test.index)
         test_values = test.values
-        for model in models:
+        for model in self.models:
             print('Model:', model.name)
             grid_params = model.get_params_combinations()
             n_combinations = len(grid_params)
@@ -25,7 +34,7 @@ class GridSearch:
             for params in grid_params:
                 instance = model.model(**params)
                 instance.train(train)
-                predicted = instance.predict(n_predict)
+                predicted = instance.predict(self.n_predict)
                 error = estimator.error(test_values, predicted)
                 response = ModelResponse(model.name, model.model, params, error, instance)
                 grid_response.models.append(response)
@@ -37,4 +46,3 @@ class GridSearch:
                 i += 1
                 
         return grid_response
-                

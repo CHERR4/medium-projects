@@ -1,4 +1,4 @@
-from src.model.time_series_model import TimeSeriesModel
+from model.time_series_model import TimeSeriesModel
 from typing import Optional, Dict
 from numbers import Number
 from dataclasses import dataclass

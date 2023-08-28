@@ -34,7 +34,7 @@ class Sarima(TimeSeriesModel):
     
     def __zero_if_negative(self, value: Number) -> Number:
         if value < 0:
-            return 0
+            return np.array([0])
         return value
 
     def __combine_predictions(self, mean: Number, high: Number) -> list:
@@ -46,4 +46,5 @@ class Sarima(TimeSeriesModel):
         pred_ci = predicted_scaled.conf_int(alpha=0.5)
         predicted_mean = self.scaler.inverse_transform(predicted_scaled.predicted_mean.reshape(-1, 1))
         prediced_high = self.scaler.inverse_transform(pred_ci[:, 1].reshape(-1, 1))
-        return self.__combine_predictions(predicted_mean, prediced_high)
+        predicted =  self.__combine_predictions(predicted_mean, prediced_high)
+        return predicted
