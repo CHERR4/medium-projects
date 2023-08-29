@@ -10,7 +10,7 @@ import utils
 
 N_CLUSTERS = 10
 
-water_consumptions = pd.read_csv('./src/data/water_consumption_100_clusters.csv', sep=',')
+water_consumptions = pd.read_csv('./data/water_consumption_100_clusters.csv', sep=',')
 
 print(water_consumptions.head())
 
@@ -42,7 +42,8 @@ best_models = {}
 for cluster in range(N_CLUSTERS):
     print('Running for cluster:', cluster)
     cluster_consumption = utils.cluster_grouped_ts(water_consumptions, cluster)
-    grid_search = GridSearch(cluster_consumption, models, estimator, steps)
+    train, test = utils.train_test_split(cluster_consumption, steps)
+    grid_search = GridSearch(train, test, models, estimator)
     search = grid_search.execute()
     best_models[cluster] = search.best_model
 
