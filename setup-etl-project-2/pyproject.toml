@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "setup-small-project"
+version = "0.1.0"
+description = ""
+authors = ["CHERR4 <jramoncaserofuentes@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.110.2"
+pymongo = "^4.7.0"
+python-dotenv = "^1.0.1"
+typing-extensions = "^4.11.0"
+uvicorn = "^0.29.0"
+psycopg2-binary = "^2.9.9"
+pydantic = "^2.7.3"
+
+
+[tool.poetry.group.dev.dependencies]
+httpx = "^0.27.0"
+ipykernel = "^6.29.4"
+pandas = "^2.2.2"
+alembic = "^1.13.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
